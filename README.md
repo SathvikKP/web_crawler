@@ -4,17 +4,12 @@
 This project is a Scrapy-based web crawler that collects URLs from the Georgia Tech College of Computing domain (cc.gatech.edu) and saves data to JSON. A separate Python analysis script processes the JSON data to compute statistics and generate charts.  
 
 ## Repository Structure
-
+```
 ├── analysis.py # Analyzes crawled_data.json and generates statistics/charts 
-
 ├── crawl_output.log # Captures crawler stdout and stderr
-
 ├── crawl_stats.json # JSON file with summarized crawl stats 
-
 ├── crawled_data.json # JSON file with main crawler output (URLs and keywords) 
-
 ├── main.py # Entry point to run the crawler ├── satkp_crawler/ # Scrapy project folder 
-
 │ ├── spiders/ 
 │ │ ├── __init__.py 
 │ │ └── satkp_spider.py # Main spider class with parsing logic 
@@ -25,7 +20,7 @@ This project is a Scrapy-based web crawler that collects URLs from the Georgia T
 │ ├── settings.py # Project-wide Scrapy settings 
 ├── scrapy.cfg # Settings for deploying the Scrapy project 
 └── ...
-
+```
 ## How It Works
 1. **Spiders**  
    - The `SatkpSpider` in `satkp_crawler/spiders/satkp_spider.py` starts at `https://www.cc.gatech.edu/` and follows internal links.  
