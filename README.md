@@ -6,10 +6,15 @@ This project is a Scrapy-based web crawler that collects URLs from the Georgia T
 ## Repository Structure
 
 ├── analysis.py # Analyzes crawled_data.json and generates statistics/charts 
+
 ├── crawl_output.log # Captures crawler stdout and stderr
+
 ├── crawl_stats.json # JSON file with summarized crawl stats 
+
 ├── crawled_data.json # JSON file with main crawler output (URLs and keywords) 
+
 ├── main.py # Entry point to run the crawler ├── satkp_crawler/ # Scrapy project folder 
+
 │ ├── spiders/ 
 │ │ ├── __init__.py 
 │ │ └── satkp_spider.py # Main spider class with parsing logic 
