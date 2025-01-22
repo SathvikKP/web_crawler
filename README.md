@@ -6,10 +6,8 @@ This project is a Scrapy-based web crawler that collects URLs from the Georgia T
 ## Repository Structure
 ```
 ├── analysis.py # Analyzes crawled_data.json and generates statistics/charts 
-├── crawl_output.log # Captures crawler stdout and stderr
-├── crawl_stats.json # JSON file with summarized crawl stats 
-├── crawled_data.json # JSON file with main crawler output (URLs and keywords) 
-├── main.py # Entry point to run the crawler ├── satkp_crawler/ # Scrapy project folder 
+├── main.py # Entry point to run the crawler
+├── satkp_crawler/ # Scrapy project folder 
 │ ├── spiders/ 
 │ │ ├── __init__.py 
 │ │ └── satkp_spider.py # Main spider class with parsing logic 
@@ -18,8 +16,12 @@ This project is a Scrapy-based web crawler that collects URLs from the Georgia T
 │ ├── middlewares.py # Defines Scrapy middlewares (unused) 
 │ ├── pipelines.py # Defines Scrapy pipelines (unused) 
 │ ├── settings.py # Project-wide Scrapy settings 
-├── scrapy.cfg # Settings for deploying the Scrapy project 
-└── ...
+├── scrapy.cfg # Settings for deploying the Scrapy project
+├── crawl_output.log # Captures crawler stdout and stderr
+├── crawl_stats.json # JSON file with summarized crawl stats 
+├── crawled_data.json # JSON file with main crawler output (URLs and keywords)
+├── crawl_statistics.png # Plots of statistics
+└── subdomains_pie_chart.png # Pie chart of subdomain distribution
 ```
 ## How It Works
 1. **Spiders**  
