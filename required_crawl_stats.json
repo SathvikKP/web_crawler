@@ -1,0 +1,17 @@
+{
+    "pages_crawled": "10791",
+    "mailto_errors": "653",
+    "non_text_errors": "9884",
+    "other_errors": "2128",
+    "offsite/filtered": "1135",
+    "downloader/response_status_count/403": "277",
+    "downloader/exception_type_count/twisted.internet.error.TimeoutError": "66",
+    "downloader/exception_type_count/twisted.internet.error.ConnectionRefusedError": "11",
+    "downloader/exception_type_count/twisted.internet.error.ConnectError": "2",
+    "downloader/exception_type_count/builtins.FileNotFoundError": "24",
+    "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": "15",
+    "downloader/exception_type_count/scrapy.exceptions.NotSupported": "5",
+    "robotstxt/exception_count/<class 'scrapy.exceptions.NotSupported'>": "2",
+    "robotstxt/exception_count/<class 'twisted.internet.error.ConnectError'>": "1",
+    "robotstxt/exception_count/<class 'twisted.internet.error.TimeoutError'>": "7"
+  }

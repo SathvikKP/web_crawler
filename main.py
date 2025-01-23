@@ -23,7 +23,7 @@ def run_spider():
         process.crawl(SatkpSpider)
         process.start()
         
-        # Restore original stdout
+        # Restore original stdout (not needed really)
         sys.stdout = original_stdout
         sys.stderr = original_stderr
 

@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 import json
 from urllib.parse import urljoin
 
+# Code inspired from the following sources:
 # Reference: https://docs.scrapy.org/en/latest/intro/tutorial.html
 # Reference: https://www.geeksforgeeks.org/implementing-web-scraping-python-scrapy/
 
-
+# Helpful doc links for Scrapy that I put here for my reference:
 # https://docs.scrapy.org/en/latest/topics/extensions.html#std-setting-CLOSESPIDER_TIMEOUT
 # https://www.scrapingbee.com/blog/crawling-python/
 # https://doc.scrapy.org/en/latest/topics/spiders.html#scrapy.Spider.start_requests
@@ -99,14 +100,11 @@ class SatkpSpider(scrapy.Spider):
         crawl_duration = end_time - self.crawler.stats.get_value('start_time').timestamp()
         crawl_speed = self.crawler.stats.get_value('pages_crawled') / (crawl_duration / 60)  # pages per minute
 
-        # Convert history lists to local variables for readability
         timestamps = self.crawler.stats.get_value('crawl_timestamps')
         pages_crawled_hist = self.crawler.stats.get_value('pages_crawled_history')
         urls_found_hist = self.crawler.stats.get_value('urls_found_history')
         keywords_hist = self.crawler.stats.get_value('keywords_extracted_history')
 
-        # Calculate the ratio: (#pages_crawled) / (#urls_found)
-        # If urls_found is zero at any index, ratio defaults to 0 to avoid division by zero
         ratio_list = []
         for pc, uf in zip(pages_crawled_hist, urls_found_hist):
             ratio_list.append(pc / uf if uf else 0)
@@ -114,40 +112,26 @@ class SatkpSpider(scrapy.Spider):
         plt.figure(figsize=(12, 10))
 
         # 1) Pages Crawled Over Time
-        plt.subplot(3, 2, 1)
-        plt.plot(timestamps, pages_crawled_hist)
-        plt.title('Pages Crawled Over Time')
-        plt.xlabel('Time (seconds)')
-        plt.ylabel('Pages Crawled')
+        plt.subplot(3, 2, 1); plt.plot(timestamps, pages_crawled_hist)
+        plt.title('Pages Crawled Over Time'); plt.xlabel('Time (seconds)'); plt.ylabel('Pages Crawled')
 
         # 2) URLs Found Over Time
-        plt.subplot(3, 2, 2)
-        plt.plot(timestamps, urls_found_hist)
-        plt.title('URLs Found Over Time')
-        plt.xlabel('Time (seconds)')
-        plt.ylabel('URLs Found')
+        plt.subplot(3, 2, 2); plt.plot(timestamps, urls_found_hist)
+        plt.title('URLs Found Over Time'); plt.xlabel('Time (seconds)'); plt.ylabel('URLs Found')
 
         # 3) Keywords Extracted Over Time
-        plt.subplot(3, 2, 3)
-        plt.plot(timestamps, keywords_hist)
-        plt.title('Keywords Extracted Over Time')
-        plt.xlabel('Time (seconds)')
-        plt.ylabel('Keywords Extracted')
+        plt.subplot(3, 2, 3); plt.plot(timestamps, keywords_hist)
+        plt.title('Keywords Extracted Over Time'); plt.xlabel('Time (seconds)'); plt.ylabel('Keywords Extracted')
 
         # 4) Crawl Speed (Pages per Minute) Over Time
         plt.subplot(3, 2, 4)
         crawl_speeds = [(p / (t / 60)) if t != 0 else 0 for p, t in zip(pages_crawled_hist, timestamps)]
-        plt.plot(timestamps, crawl_speeds)
-        plt.title('Crawl Speed Over Time')
-        plt.xlabel('Time (seconds)')
-        plt.ylabel('Pages per Minute')
+        plt.plot(timestamps, crawl_speeds); plt.title('Crawl Speed Over Time'); plt.xlabel('Time (seconds)'); plt.ylabel('Pages per Minute')
 
         # 5) Ratio of #URL Crawled / #URL Found Over Time
         plt.subplot(3, 2, 5)
         plt.plot(timestamps, ratio_list)
-        plt.title('Ratio (Crawled / Found) Over Time')
-        plt.xlabel('Time (seconds)')
-        plt.ylabel('Ratio')
+        plt.title('Ratio (Crawled / Found) Over Time'); plt.xlabel('Time (seconds)'); plt.ylabel('Ratio')
 
         plt.tight_layout()
         plt.savefig('crawl_statistics.png')

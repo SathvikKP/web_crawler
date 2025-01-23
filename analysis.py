@@ -5,32 +5,30 @@ import re
 import matplotlib.pyplot as plt
 
 def analyze_crawled_data(json_file="crawled_data.json"):
-    # Counters
+
     total_urls = 0
     cs_count = 0               # URLs containing "cs"
     tilde_count = 0            # URLs containing "~"
-    
-    # domain counters
     cc_subdomain_count = 0     # URLs within *.cc.gatech.edu
 
-    sites_subdomain_count = 0  # URLs within sites.gatech.edu
-    faculty_subdomain_count = 0 # URLs within faculty.gatech.edu
+    # I am incrementing below counters for subdomain analysis
+    sites_subdomain_count = 0  # URLs within sites.cc.gatech.edu
+    faculty_subdomain_count = 0 # URLs within faculty.cc.gatech.edu
     support_subdomain_count = 0 # URLs within support.cc.gatech.edu
     www_subdomain_count = 0     # URLs within www.cc.gatech.edu
     other_subdomain_count = 0   # URLs within other subdomains
     urls = []
 
-    # Load from JSON
     with open(json_file, "r") as f:
         data = json.load(f)
 
-    # data is dictionaries with url and keyword
+    # data: {"url": "https://www.cc.gatech.edu/", "keywords": "College of Computing"},
     for item in data:
         url = item.get("url", "")
         urls.append(url)
         total_urls += 1
         
-        # Classify based on substrings
+        # I am using simple regex and string comparision : inefficient in practical use
         if re.search(r'cs\d{4}', url):
             cs_count += 1
         if "~" in url:
@@ -82,16 +80,7 @@ def analyze_crawled_data(json_file="crawled_data.json"):
     print(f"www.cc.gatech.edu: {www_subdomain_count} ({www_subdomain_percent:.2f}%)")
     print(f"Other Subdomains: {other_subdomain_count} ({other_subdomain_percent:.2f}%)")
 
-    #print("\nCategories above 10% occurrence:")
-    #if cs_percent > 10:
-    #    print(" - URLs containing 'cs'")
-    #if tilde_percent > 10:
-    #    print(" - Faculty pages (~)")
-    #if cc_subdomain_percent > 10:
-    #    print(" - cc.gatech.edu subdomain")
-
-    # Prepare data for the pie chart
-    subdomains = ["sites.gatech.edu", "faculty.gatech.edu", "support.cc.gatech.edu", "www.cc.gatech.edu", "Other Subdomains"]
+    subdomains = ["sites.cc.gatech.edu", "faculty.cc.gatech.edu", "support.cc.gatech.edu", "www.cc.gatech.edu", "Other Subdomains"]
 
     subdomain_counts = [sites_subdomain_count, faculty_subdomain_count, support_subdomain_count, www_subdomain_count, other_subdomain_count]
 
@@ -101,8 +90,7 @@ def analyze_crawled_data(json_file="crawled_data.json"):
     plt.figure(figsize=(8, 8))
     plt.pie(subdomain_counts, labels=subdomains, autopct='%1.1f%%', startangle=140, colors=colors, shadow=True )
     plt.title("Distribution of URLs Across Subdomains")
-    plt.axis('equal')  # Ensures pie chart is circular
-    plt.tight_layout(); plt.savefig("subdomains_pie_chart.png"); plt.show()
+    plt.axis('equal'); plt.tight_layout(); plt.savefig("subdomains_pie_chart.png"); plt.show()
 
 
 if __name__ == "__main__":
